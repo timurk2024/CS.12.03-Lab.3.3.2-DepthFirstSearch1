@@ -44,41 +44,33 @@ public class DepthFirstSearch {
     }
 
     public static int[] depthFirstSearch(int[][] graph) {
+        Stack<Integer> stack = new Stack<>(); // Create a stack
+        boolean[] visited = new boolean[graph.length]; // Track visited nodes
+        int[] path = new int[graph.length]; // The path of nodes visited
+        int pathIndex = 0; // Index for the path array
 
-        // Create a stack.
+        // Start DFS at node 0
+        stack.push(0); // Push starting node onto stack
+        visited[0] = true; // Mark as visited
 
-        // Create an array called visited. This will keep track of which nodes we have visited.
+        while (!stack.empty()) {
+            int current = stack.pop(); // Pop current node from stack
+            path[pathIndex++] = current; // Add to path
 
-        // Create an array called path. This will keep track of the order of nodes that we visit.
+            // Get all adjacent nodes
+            for (int neighbor : graph[current]) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true; // Mark neighbor as visited
+                    stack.push(neighbor); // Push onto stack
+                }
+            }
+        }
 
-        // Create an index for the path array.
+        // Adjust the path array to the correct size
+        int[] finalPath = new int[pathIndex];
+        System.arraycopy(path, 0, finalPath, 0, pathIndex);
 
-        // Push our starting node to the stack. We can begin our traversal from any valid node. Let's begin our traversal at node 0.
-
-        // Record the starting node as visited.
-
-        // While our stack is not empty i.e. while we still have nodes to explore ...
-
-            // Pop the node that we are currently visiting from the stack.
-
-            // Add the node that we are currently visiting to the path.
-
-            // Obtain an array of all neighbouring/adjacent nodes of the node that we are currently visiting.
-
-            // For each neighbouring/adjacent node ...
-
-                // If the neighbouring/adjacent node has not been visited ...
-
-                    // Record the neighbouring/adjacent node as visited.
-
-                    // Push the neighbouring/adjacent node onto the stack.
-
-
-
-
-        // Return the path.
-        return null;
-
+        return finalPath;
     }
 
     // A private helper method that prints the path. Used for visualisation and debugging purposes.
@@ -88,6 +80,5 @@ public class DepthFirstSearch {
         System.out.println();
 
     }
-
 
 }
